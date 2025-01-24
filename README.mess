@@ -1,0 +1,14 @@
+## About Machine-Measurements
+This is an extension system to ''machine-state''(https://shinmera.com/project/machine-state) to provide easier access to machine state over time, such as CPU utilisation, IO speed, etc.
+
+## How To
+Create a measurement you'd like to observe, then run ``measure`` to draw a measurement:
+
+:: common lisp
+(org.shirakumo.machine-state.measurements:cpu-% T)
+(org.shirakumo.machine-state.measurements:measure *)
+::
+
+The every time ``measure`` is invoked it'll probe the value again as well as the time difference since the last measurement. Returned are always three values: the measured value, the time difference in seconds as a double-float, and the ``measurement`` object.
+
+And that's pretty much it. Please see the symbol index for an enumeration of all available measurements.

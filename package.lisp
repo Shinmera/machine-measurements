@@ -3,6 +3,13 @@
   (:local-nicknames
    (#:machine-state #:org.shirakumo.machine-state)
    (#:precise-time #:org.shirakumo.precise-time))
+  ;; protocol.lisp
+  (:export
+   #:measurement
+   #:measure
+   #:last-time
+   #:last-value)
+  ;; measurements.lisp
   (:export
    #:storage-io
    #:storage-read

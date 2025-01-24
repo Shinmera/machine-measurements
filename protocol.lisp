@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.machine-state.measurements)
 
 (defstruct (measurement
+            (:conc-name NIL)
             (:constructor NIL)
             (:copier NIL)
             (:predicate NIL))
@@ -15,8 +16,8 @@
 (defmethod measure :around ((measurement measurement))
   (let* ((value (call-next-method))
          (time (org.shirakumo.precise-time:get-monotonic-time/double))
-         (tdiff (- time (measurement-last-time measurement))))
-    (setf (measurement-last-time measurement) time)
+         (tdiff (- time (last-time measurement))))
+    (setf (last-time measurement) time)
     (values value tdiff measurement)))
 
 (defstruct (diff-measurement
@@ -27,8 +28,8 @@
 
 (defmethod measure :around ((measurement diff-measurement))
   (multiple-value-bind (value tdiff) (call-next-method)
-    (let ((vdiff (- value (measurement-last-value measurement))))
-      (setf (diff-measurement-last-value measurement) value)
+    (let ((vdiff (- value (last-value measurement))))
+      (setf (last-value measurement) value)
       (values vdiff tdiff measurement))))
 
 (defstruct (rate-measurement
@@ -61,10 +62,10 @@
              ,name))
 
          (defmethod print-object ((,name ,name) stream)
-           (write (list ',name
-                        ,@(loop for slot-name in initargs
-                                collect `(,(intern (format NIL "~a-~a" name slot-name)) ,name)))
-                  :stream stream))
+           (print-unreadable-object (,name stream :type T :identity T)
+             (format stream "~@{~a~^ ~}"
+                     ,@(loop for slot-name in initargs
+                             collect `(,(intern (format NIL "~a-~a" name slot-name)) ,name)))))
          
          (defmethod measure ((,name ,name))
            (symbol-macrolet ,(loop for slot in slots
