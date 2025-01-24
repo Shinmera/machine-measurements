@@ -4,7 +4,8 @@
             (:constructor NIL)
             (:copier NIL)
             (:predicate NIL))
-  (last-time 0.0d0 :type double-float))
+  (last-time 0.0d0 :type double-float)
+  (last-value 0 :type T))
 
 (defmethod print-object ((measurement measurement) stream)
   (print-unreadable-object (measurement stream :type T :identity T)))
@@ -22,52 +23,51 @@
             (:constructor NIL)
             (:copier NIL)
             (:predicate NIL)
-            (:include measurement))
-  (last-measurement 0 :type (or double-float (unsigned-byte 64))))
+            (:include measurement)))
 
 (defmethod measure :around ((measurement diff-measurement))
   (multiple-value-bind (value tdiff) (call-next-method)
-    (let ((vdiff (- value (diff-measurement-last-measurement measurement))))
-      (setf (diff-measurement-last-measurement measurement) value)
+    (let ((vdiff (- value (measurement-last-value measurement))))
+      (setf (diff-measurement-last-value measurement) value)
       (values vdiff tdiff measurement))))
 
 (defstruct (rate-measurement
             (:constructor NIL)
             (:copier NIL)
             (:predicate NIL)
-            (:include measurement))
-  (last-measurement 0 :type (or double-float (unsigned-byte 64))))
+            (:include diff-measurement)))
 
 (defmethod measure :around ((measurement rate-measurement))
-  (multiple-value-bind (value tdiff) (call-next-method)
-    (let ((vdiff (- value (rate-measurement-last-measurement measurement))))
-      (setf (rate-measurement-last-measurement measurement) value)
-      (values (/ vdiff tdiff) tdiff measurement))))
+  (multiple-value-bind (vdiff tdiff) (call-next-method)
+    (values (/ vdiff tdiff) tdiff measurement)))
 
 (defmacro define-measurement (name slots &body measure)
   (destructuring-bind (name &optional (super 'measurement))
       (if (listp name) name (list name))
-    (let ((constructor (intern (format NIL "%~a" name))))
+    (let ((constructor (intern (format NIL "%~a" name)))
+          (initargs (loop for slot in slots
+                          unless (consp slot) collect slot)))
       `(progn
          (defstruct (,name
-                     (:constructor ,constructor ,(mapcar #'car slots))
+                     (:constructor ,constructor ,initargs)
                      (:copier NIL)
                      (:predicate NIL)
                      (:include ,super))
            ,@slots)
 
-         (defun ,name ,(mapcar #'car slots)
-           (let ((,name (,constructor ,@(mapcar #'car slots))))
+         (defun ,name ,initargs
+           (let ((,name (,constructor ,@initargs)))
              (measure ,name)
              ,name))
 
          (defmethod print-object ((,name ,name) stream)
            (write (list ',name
-                        ,@(loop for (slot-name) in slots
+                        ,@(loop for slot-name in initargs
                                 collect `(,(intern (format NIL "~a-~a" name slot-name)) ,name)))
                   :stream stream))
          
          (defmethod measure ((,name ,name))
-           (let ,(loop for (slot-name) in slots
-                       collect `(,slot-name (,(intern (format NIL "~a-~a" name slot-name)) ,name)))
+           (symbol-macrolet ,(loop for slot in slots
+                                   for slot-name = (if (listp slot) (car slot) slot)
+                                   collect `(,slot-name (,(intern (format NIL "~a-~a" name slot-name)) ,name)))
              ,@measure))))))
