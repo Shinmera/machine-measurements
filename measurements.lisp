@@ -76,7 +76,7 @@
 (define-measurement heap-total ()
   (nth-value 1 (machine-state:gc-room)))
 
-(define-measurement (process-busy rate-measurement) ()
+(define-measurement (process-busy diff-measurement) ()
   (machine-state:process-time))
 
 (define-measurement process-size ()
@@ -91,7 +91,7 @@
 (define-measurement (process-write rate-measurement) ()
   (nth-value 2 (machine-state:process-io-bytes)))
 
-(define-measurement (gc-busy rate-measurement) ()
+(define-measurement (gc-busy diff-measurement) ()
   (machine-state:gc-time))
 
 (define-measurement gpu-% ()
@@ -105,5 +105,5 @@
   (multiple-value-bind (free total) (machine-state:gpu-room)
     (- total free)))
 
-(define-measurement (gpu-busy rate-measurement) ()
+(define-measurement (gpu-busy diff-measurement) ()
   (machine-state:gpu-time))
