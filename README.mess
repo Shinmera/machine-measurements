@@ -2,7 +2,7 @@
 This is an extension system to ''machine-state''(https://shinmera.com/project/machine-state) to provide easier access to machine state over time, such as CPU utilisation, IO speed, etc.
 
 ## How To
-Create a measurement you'd like to observe, then run ``measure`` to draw a measurement:
+Create a ``measurement`` you'd like to observe, then run ``measure`` to draw a measurement. Each ``measurement`` type has a constructor function with the same name.
 
 :: common lisp
 (org.shirakumo.machine-state.measurements:cpu-% T)

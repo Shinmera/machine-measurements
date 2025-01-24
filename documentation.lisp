@@ -253,4 +253,165 @@ See MEASUREMENT")
     "Measures the GPU busy time in seconds
 
 See ORG.SHIRAKUMO.MACHINE-STATE:GPU-TIME
-See MEASUREMENT"))
+See MEASUREMENT")
+
+  (function storage-io
+    "Create a storage-io instance
+
+See STORAGE-IO (type)")
+
+  (function storage-read
+    "Create a storage-read instance
+
+See STORAGE-READ (type)")
+
+  (function storage-write
+    "Create a storage-write instance
+
+See STORAGE-WRITE (type)")
+
+  (function storage-%
+    "Create a storage-% instance
+
+See STORAGE-% (type)")
+
+  (function storage-free
+    "Create a storage-free instance
+
+See STORAGE-FREE (type)")
+
+  (function storage-used
+    "Create a storage-used instance
+
+See STORAGE-USED (type)")
+
+  (function storage-total
+    "Create a storage-total instance
+
+See STORAGE-TOTAL (type)")
+
+  (function network-io
+    "Create a network-io instance
+
+See NETWORK-IO (type)")
+
+  (function network-read
+    "Create a network-read instance
+
+See NETWORK-READ (type)")
+
+  (function network-write
+    "Create a network-write instance
+
+See NETWORK-WRITE (type)")
+
+  (function memory-%
+    "Create a memory-% instance
+
+See MEMORY-% (type)")
+
+  (function memory-free
+    "Create a memory-free instance
+
+See MEMORY-FREE (type)")
+
+  (function memory-used
+    "Create a memory-used instance
+
+See MEMORY-USED (type)")
+
+  (function memory-total
+    "Create a memory-total instance
+
+See MEMORY-TOTAL (type)")
+
+  (function uptime
+    "Create a uptime instance
+
+See UPTIME (type)")
+
+  (function cpu-%
+    "Create a cpu-% instance
+
+See CPU-% (type)")
+
+  (function cpu-idle
+    "Create a cpu-idle instance
+
+See CPU-IDLE (type)")
+
+  (function cpu-busy
+    "Create a cpu-busy instance
+
+See CPU-BUSY (type)")
+
+  (function heap-%
+    "Create a heap-% instance
+
+See HEAP-% (type)")
+
+  (function heap-free
+    "Create a heap-free instance
+
+See HEAP-FREE (type)")
+
+  (function heap-used
+    "Create a heap-used instance
+
+See HEAP-USED (type)")
+
+  (function heap-total
+    "Create a heap-total instance
+
+See HEAP-TOTAL (type)")
+
+  (function process-busy
+    "Create a process-busy instance
+
+See PROCESS-BUSY (type)")
+
+  (function process-size
+    "Create a process-size instance
+
+See PROCESS-SIZE (type)")
+
+  (function process-io
+    "Create a process-io instance
+
+See PROCESS-IO (type)")
+
+  (function process-read
+    "Create a process-read instance
+
+See PROCESS-READ (type)")
+
+  (function process-write
+    "Create a process-write instance
+
+See PROCESS-WRITE (type)")
+
+  (function gc-busy
+    "Create a gc-busy instance
+
+See GC-BUSY (type)")
+
+  (function gpu-%
+    "Create a gpu-% instance
+
+See GPU-% (type)")
+
+  (function gpu-free
+    "Create a gpu-free instance
+
+See GPU-FREE (type)")
+
+  (function gpu-used
+    "Create a gpu-used instance
+
+See GPU-USED (type)")
+
+  (function gpu-busy
+    "Create a gpu-busy instance
+
+See GPU-BUSY (type)")
+)
