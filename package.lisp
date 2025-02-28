@@ -42,4 +42,6 @@
    #:gpu-%
    #:gpu-free
    #:gpu-used
-   #:gpu-busy))
+   #:gpu-busy
+   #:battery-%
+   #:battery-charge))

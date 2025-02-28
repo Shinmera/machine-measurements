@@ -255,6 +255,18 @@ See MEASUREMENT")
 See ORG.SHIRAKUMO.MACHINE-STATE:GPU-TIME
 See MEASUREMENT")
 
+  (type battery-%
+    "Measures the battery charge in percentage
+
+See ORG.SHIRAKUMO.MACHINE-STATE:MACHINE-BATTERY
+See MEASUREMENT")
+
+  (type battery-charge
+    "Measures the battery charge
+
+See ORG.SHIRAKUMO.MACHINE-STATE:MACHINE-BATTERY
+See MEASUREMENT")
+
   (function storage-io
     "Create a storage-io instance
 
@@ -414,4 +426,13 @@ See GPU-USED (type)")
     "Create a gpu-busy instance
 
 See GPU-BUSY (type)")
-)
+
+  (function battery-%
+    "Create a battery-% instance
+
+See BATTERY-% (type)")
+
+  (function battery-charge
+    "Create a battery-charge instance
+
+See BATTERY-% (type)"))

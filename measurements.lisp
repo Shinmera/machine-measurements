@@ -107,3 +107,10 @@
 
 (define-measurement (gpu-busy diff-measurement) ()
   (machine-state:gpu-time))
+
+(define-measurement battery-% ()
+  (multiple-value-bind (current full) (machine-state:machine-battery)
+    (float (* 100 (/ current full)) 0d0)))
+
+(define-measurement battery-charge ()
+  (nth-value 0 (machine-state:machine-battery)))
